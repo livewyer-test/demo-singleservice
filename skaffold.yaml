@@ -1,30 +1,15 @@
-apiVersion: skaffold/v1beta2
+apiVersion: skaffold/v1beta7
 kind: Config
 build:
-  artifacts:
-  - image: changeme
-    context: .
-    docker: {}
   tagPolicy:
-    envTemplate:
-      template: '{{.DOCKER_REGISTRY}}/livewyer-test/demo-singleservice:{{.VERSION}}'
-  local: {}
+    sha256: {}
+  artifacts:
+  - image: 'v2.livew.io/livewyer-test/demo-singleservice'
 deploy:
-  kubectl: {}
-profiles:
-- name: dev
-  build:
-    artifacts:
-    - docker: {}
-    tagPolicy:
-      envTemplate:
-        template: '{{.DOCKER_REGISTRY}}/livewyer-test/demo-singleservice:{{.DIGEST_HEX}}'
-    local: {}
-  deploy:
-    helm:
-      releases:
-      - name: demo-singleservice
-        chartPath: charts/demo-singleservice
-        setValueTemplates:
-          image.repository: '{{.DOCKER_REGISTRY}}/livewyer-test/demo-singleservice'
-          image.tag: '{{.DIGEST_HEX}}'
+  helm:
+    releases:
+    - name: demo-singleservice
+      chartPath: charts/demo-singleservice
+      skipBuildDependencies: true # Skip helm dep build
+      setValueTemplates:
+        imageName: '{{.DOCKER_REGISTRY}}/livewyer-test/demo-singleservice'

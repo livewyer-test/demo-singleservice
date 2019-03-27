@@ -64,5 +64,5 @@ lint: vendor | $(PKGS) $(GOLINT) # ❷
 watch:
 	reflex -r "\.go$" -R "vendor.*" make skaffold-run
 
-skaffold-run: build
-	skaffold run -p dev
+skaffold-run: 
+	skaffold dev --namespace ${NAMESPACE}
