@@ -2,14 +2,26 @@ apiVersion: skaffold/v1beta7
 kind: Config
 build:
   tagPolicy:
-    sha256: {}
+    envTemplate:
+      template: '{{.DOCKER_REGISTRY}}/livewyer-test/demo-singleservice:{{.VERSION}}'
   artifacts:
-  - image: 'v2.livew.io/livewyer-test/demo-singleservice'
+  - image: livewyer-test/demo-singleservice
+  local: {}
 deploy:
-  helm:
-    releases:
-    - name: demo-singleservice
-      chartPath: charts/demo-singleservice
-      skipBuildDependencies: true # Skip helm dep build
-      setValueTemplates:
-        imageName: '{{.DOCKER_REGISTRY}}/livewyer-test/demo-singleservice'
+  kubectl: {}
+profiles:
+- name: dev
+  build:
+    artifacts:
+    - image: demo-singleservice
+    tagPolicy:
+      sha256: {}
+    local: {}
+  deploy:
+    helm:
+      releases:
+      - name: demo-singleservice
+        chartPath: charts/demo-singleservice
+        skipBuildDependencies: true # Skip helm dep build
+        setValueTemplates:
+          imageName: '{{.SKAFFOLD_DEFAULT_REPO}}/demo-singleservice@sha256:{{.DIGEST_HEX}}'
