@@ -7,8 +7,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflag
 
 FROM debian
 
-RUN apt-get update && apt-get upgrade -y
-
 COPY --from=builder /build/main /app/
 WORKDIR /app
 CMD ["./main"]
