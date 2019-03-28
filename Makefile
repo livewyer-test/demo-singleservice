@@ -65,4 +65,4 @@ watch:
 	reflex -r "\.go" -R "vendor.*" make skaffold-run
 
 skaffold-run: 
-	skaffold deploy -p dev --namespace ${SKAFFOLD_DEFAULT_NAMESPACE}
+	skaffold deploy -p dev
