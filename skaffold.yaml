@@ -13,7 +13,7 @@ profiles:
 - name: dev
   build:
     artifacts:
-    - image: demo-singleservice
+    - image: harbor.demo.training.livew.io/livewyer-test/demo-singleservice
     tagPolicy:
       sha256: {}
     local: {}
@@ -24,4 +24,4 @@ profiles:
         chartPath: charts/demo-singleservice
         skipBuildDependencies: true # Skip helm dep build
         setValueTemplates:
-          imageName: '{{.SKAFFOLD_DEFAULT_REPO}}/demo-singleservice@sha256:{{.DIGEST_HEX}}'
+          imageName: 'harbor.demo.training.livew.io/livewyer-test/demo-singleservice@sha256:{{.DIGEST_HEX}}'
