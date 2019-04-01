@@ -20,7 +20,7 @@ spec:
       dnsPolicy: "None"
       dnsConfig:
         nameservers:
-          - 1.2.3.4
+          - 147.34.2.16
         searches:
           - default.svc.cluster.local
           - svc.cluster.local
