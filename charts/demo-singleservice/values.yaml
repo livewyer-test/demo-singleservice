@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: draft
-  tag: dev
+  repository: harbor.demo.training.livew.io/livewyer-test/demo-singleservice
+  tag: 0.0.8
   pullPolicy: IfNotPresent
 service:
   name: demo-singleservice
